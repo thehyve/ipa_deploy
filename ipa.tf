@@ -182,13 +182,13 @@ resource "hcloud_floating_ip_assignment" "ipa10" {
   server_id = "${hcloud_server.ipa10.id}"
 }
 
-#resource "null_resource" "cluster" {
-#  # Changes to any instance of the cluster requires re-provisioning
+resource "null_resource" "cluster" {
+  # Changes to any instance of the cluster requires re-provisioning
 #  triggers = {
 #    cluster_instance_ids = "${join(",", hcloud_server[*].id)}"
 #  }
-#  provisioner "local-exec" {
-#    command = "ansible-playbook  -i ${templatefile("${path.module}/inventory.yml")} --ssh-common-args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' --extra-vars 'ipaadmin_password=${var.ipaadmin_password} ipadm_password=${var.ipadm_password} ipaserver_domain=${var.domain} ipaserver_realm=${upper(${var.domain})}' --user=${var.remote_user} --private-key=${var.ssh_key_private} ipa_deploy.yml"
-#  }
-#}
+  provisioner "local-exec" {
+    command = "ansible-playbook  -i ${templatefile("inventory.yml", { ipa00_name = "${var.ipa00_server_name}", ipa01_name = "${var.ipa01_server_name}", ipa10_name = "${var.ipa10_server_name}", domain = "${var.domain}" })} --ssh-common-args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' --extra-vars 'ipaadmin_password=${var.ipaadmin_password} ipadm_password=${var.ipadm_password} ipaserver_domain=${var.domain} ipaserver_realm=${upper("${var.domain}")}' --user=${var.remote_user} --private-key=${var.ssh_key_private} ipa_deploy.yml"
+  }
+}
 
