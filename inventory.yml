@@ -3,14 +3,14 @@ ipa:
   children:
     ipaserver:
       hosts:
-        ${var.ipa00_server_name}.${var.domain}:
+        ${ipa00_name}.${domain}:
     ipareplicas:
       hosts:
-        ${var.ipa01_server_name}.${var.domain}:
-        ${var.ipa10_server_name}.${var.domain}:
+        ${ipa01_name}.${domain}:
+        ${ipa10_name}.${domain}:
 #    ipaclients:
 #      hosts:
-  vars:
+  :
     ipaclient_mkhomedir: yes
     ipaserver_allow_zone_overlap: yes
     ipaserver_auto_reverse: yes
