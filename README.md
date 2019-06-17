@@ -35,9 +35,9 @@ You need to have a following environment variables:
 * `HCLOUD_TOKEN`:
 `export HCLOUD_TOKEN="KJKHUH453HH0HIU"`
 * `TF_VAR_ssh_key_private`:
-`export TF_VAR_ssh_key_private="~/.ssh/id_ed25519"'
+`export TF_VAR_ssh_key_private="~/.ssh/id_ed25519"`
 * `TF_VAR_ssh_key`:
-`export TF_VAR_ssh_key="123456"
+`export TF_VAR_ssh_key="123456"`
 * `TF_VAR_domain`:
 `export TF_VAR_domain="example.com"`
 * `TF_VAR_ipaadmin_password`:
