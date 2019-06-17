@@ -1,0 +1,61 @@
+---
+- hosts: all
+  tasks:
+  - name: print floating ip
+    debug:
+      msg: "{{ fixed_ip }}"
+  - name: install needed network manager libs
+    package:
+      name:
+      - NetworkManager-glib
+      - nm-connection-editor
+      - libsemanage-python
+      - policycoreutils-python
+      - NetworkManager
+      state: present
+  - name: restart NetworkManager
+    systemd:
+      name: NetworkManager
+      state: restarted
+  - name: configure host network connection
+    nmcli:
+      autoconnect: yes
+      type: ethernet
+      conn_name: host_network
+      dns4:
+      - 213.133.98.98
+      - 213.133.100.100
+      - 213.133.99.99
+      gw4: "172.31.1.1"
+      ip4: "{{ fixed_ip }}"
+      ifname: eth0
+      state: present
+  - name: define hostname for a server
+    hostname:
+      name: "{{ server_name }}.{{ domain_name }}"
+  - name: get list of eth0* config files
+    find:
+      paths: /etc/sysconfig/network-scripts
+      patterns: '*eth0*'
+    register: file_list
+  - name: delete previously found files
+    file:
+      path: "{{ item.path }}"
+      state: absent
+    loop: "{{ file_list.files }}"
+    register: files_are_removed
+  - name: reboot
+    reboot:
+    when: files_are_removed is changed
+  - name: wait for reboot
+    wait_for_connection:
+    when: files_are_removed is changed
+  - name: print message that server is rebooted
+    debug:
+      msg: "server is accessible!"
+  - name: install bash-completion
+    package:
+      name:
+      - bash-completion
+      - podman
+      state: present
