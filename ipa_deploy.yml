@@ -1,0 +1,16 @@
+---
+- hosts: ipa
+  tasks:
+  - name: print ipaadmin_password
+    debug:
+      msg: "{{ ipaadmin_password }}"
+  - name: print ipadm_password
+    debug:
+      msg: "{{ ipadm_password }}"
+  - name: print ipaserver_domain
+    debug:
+      msg: "{{ ipaserver_domain }}"
+  - name: print ipaserver_realm
+    debug:
+      msg: "{{ ipaserver_realm }}"
+...
