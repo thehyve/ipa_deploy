@@ -59,6 +59,14 @@ variable "domain" {
   type = string
   description = "A domain name for FreeIPA server. Export TF_VAR_domain environment variable to define."
 }
+variable "ipaadmin_password" {
+  type = string
+  description = "A password for ipa administrator user"
+}
+variable "ipadm_password" {
+  type = string
+  description = "Directory Manger password"
+}
 
 provider "hcloud" {
 }
