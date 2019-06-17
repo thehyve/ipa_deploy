@@ -11,9 +11,9 @@ variable "ssh_key_private" {
   type = string
   description = "Ssh private key to use for connection to a server. Export TF_VAR_ssh_key_private environment variable to define a value."
 }
-variable "ssh_keys" {
-  type = list(string)
-  description = "A list with ids of public keys of ssh key-pairs that will be used for connection to a server. Export TF_VAR_ssh_keys environment variable to define a value."
+variable "ssh_key" {
+  type = string
+  description = "An id of public key of ssh key-pairs that will be used for connection to a server. Export TF_VAR_ssh_key environment variable to define a value."
 }
 variable "remote_user" {
   type = string
@@ -88,7 +88,9 @@ resource "hcloud_server" "ipa00" {
   backups = true
   image = "${var.server_image}"
   location = "${var.ipa00_location}"
-  ssh_keys = "${var.ssh_keys}"
+  ssh_keys = [
+    "${var.ssh_key}",
+  ]
   provisioner "remote-exec" {
     inline = [
       "yum install python libselinux-python -y"
@@ -112,7 +114,9 @@ resource "hcloud_server" "ipa01" {
   backups = true
   image = "${var.server_image}"
   location = "${var.ipa01_location}"
-  ssh_keys = "${var.ssh_keys}"
+  ssh_keys = [
+    "${var.ssh_key}",
+  ]
   provisioner "remote-exec" {
     inline = [
       "yum install python libselinux-python -y"
@@ -136,7 +140,9 @@ resource "hcloud_server" "ipa10" {
   backups = true
   image = "${var.server_image}"
   location = "${var.ipa10_location}"
-  ssh_keys = "${var.ssh_keys}"
+  ssh_keys = [
+    "${var.ssh_key}",
+  ]
   provisioner "remote-exec" {
     inline = [
       "yum install python libselinux-python -y"
