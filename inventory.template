@@ -10,7 +10,7 @@ ipa:
         ${ipa10_name}.${domain}:
 #    ipaclients:
 #      hosts:
-  :
+  vars:
     ipaclient_mkhomedir: yes
     ipaserver_allow_zone_overlap: yes
     ipaserver_auto_reverse: yes
