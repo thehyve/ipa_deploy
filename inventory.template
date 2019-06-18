@@ -4,21 +4,42 @@ ipa:
     ipaserver:
       hosts:
         ${ipa00_name}.${domain}:
+      vars:
+        ipaserver_allow_zone_overlap: yes
+        ipaserver_auto_reverse: yes
+        ipaserver_forwarders:
+        - 213.133.98.98
+        - 213.133.100.100
+        - 213.133.99.99
+        ipaserver_setup_dns: yes
+        ipaserver_setup_ca: yes
+        ipaserver_setup_kra: yes
+        ipaserver_setup_firewalld: no
     ipareplicas:
       hosts:
         ${ipa01_name}.${domain}:
         ${ipa10_name}.${domain}:
+      vars:
+#        ipaservers:
+#        - "${ipa00_name}.${domain}"
+#        ipaserver: "${ipa00_name}.${domain}"
+        ipareplica_servers:
+        - "${ipa00_name}.${domain}"
+        ipareplica_realm: "${upper("${domain}")}"
+        ipareplica_setup_ca: yes
+        ipareplica_setup_kra: yes
+        ipareplica_setup_dns: yes
+        ipareplica_allow_zone_overlap: yes
+        ipareplica_auto_reverse: yes
+        ipareplica_forwarders:
+        - 213.133.98.98
+        - 213.133.100.100
+        - 213.133.99.99
+        ipareplica_setup_firewalld: no
 #    ipaclients:
 #      hosts:
+#      vars:
   vars:
     ipaclient_mkhomedir: yes
-    ipaserver_allow_zone_overlap: yes
-    ipaserver_auto_reverse: yes
-    ipaserver_forwarders:
-    - 213.133.98.98
-    - 213.133.100.100
-    - 213.133.99.99
-    ipaserver_setup_dns: yes
-    ipaserver_setup_kra: yes
-    ipaserver_setup_firewalld: no
+    ipaclient_ssh_trust_dns: yes
 ...
