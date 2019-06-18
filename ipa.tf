@@ -189,9 +189,9 @@ resource "null_resource" "cluster" {
     hcloud_floating_ip_assignment.ipa10,
   ]
   # Changes to any instance of the cluster requires re-provisioning
-#  triggers = {
-#    cluster_instance_ids = "${join(",", hcloud_server[*].id)}"
-#  }
+  triggers = {
+    cluster_instance_ids = "${join(",", [ hcloud_server.ipa00.id, hcloud_server.ipa01.id, hcloud_server.ipa10.id ])}"
+  }
   provisioner "local-exec" {
     command = "echo '${templatefile("inventory.template", { ipa00_name = "${var.ipa00_server_name}", ipa01_name = "${var.ipa01_server_name}", ipa10_name = "${var.ipa10_server_name}", domain = "${var.domain}" })}' > inventory.yml"
   }
