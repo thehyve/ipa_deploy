@@ -183,6 +183,11 @@ resource "hcloud_floating_ip_assignment" "ipa10" {
 }
 
 resource "null_resource" "cluster" {
+  depends_on = [
+    hcloud_floating_ip_assignment.ipa00,
+    hcloud_floating_ip_assignment.ipa01,
+    hcloud_floating_ip_assignment.ipa10,
+  ]
   # Changes to any instance of the cluster requires re-provisioning
 #  triggers = {
 #    cluster_instance_ids = "${join(",", hcloud_server[*].id)}"
