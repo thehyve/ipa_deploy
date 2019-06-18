@@ -20,6 +20,5 @@ ipa:
     - 213.133.99.99
     ipaserver_setup_dns: yes
     ipaserver_setup_kra: yes
-    ipaserver_setup_dns: yes
     ipaserver_setup_firewalld: no
 ...
