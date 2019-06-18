@@ -6,6 +6,7 @@ Since for now Hetzner provides cloud in 3 DC this project deployes one server pe
 * ipa00 in Nuremberg
 * ipa01 in Falkenstein
 * ipa10 in Helsinki
+
 That can be extended in a future. Keep in mind [this article](https://www.freeipa.org/page/Deployment_Recommendations#Number_of_servers).
 
 Prerequirements
